@@ -3,7 +3,7 @@ import setuptools
 
 # install inplace_abn 
 # subprocess.call(["pip", "install", "git+https://github.com/mapillary/inplace_abn.git@v1.0.11"])
-subprocess.call(['python', 'magic_vnet/blocks/inplace_abn/setup.py', 'install'])
+# subprocess.call(['python', 'magic_vnet/blocks/inplace_abn/setup.py', 'install'])
 
 setuptools.setup(
     # Meta-data
@@ -28,6 +28,7 @@ setuptools.setup(
     python_requires=">=3, <4",
 
     # Package description
-    packages=["magic_vnet"],
+    packages=setuptools.find_packages()
+
 
 )

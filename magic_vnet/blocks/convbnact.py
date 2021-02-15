@@ -6,6 +6,9 @@ from .mabn import MABN3d, CenConv3d
 try:
     from inplace_abn import ABN, InPlaceABN, InPlaceABNSync
 except:
+    print('-- inplace_abn not installed! \n   nn.BatchNorm3D is used instead of In-Place Activated BatchNorm!')
+    no_inplace=True
+    ABN=nn.BatchNorm3d
     pass
 
 
@@ -64,10 +67,16 @@ class ConvBnAct3d(nn.Module):
                     self.act_type = False
                 else:
                     act = 'identity'
-                norm = self.norm_type(channels, activation=act)
+                if not no_inplace:
+                    norm = self.norm_type(channels, activation=act)
+                else:
+                    norm = self.norm_type(channels)
             else:
                 act = 'identity'
-                norm = self.norm_type(channels, activation=act)
+                if not no_inplace:
+                    norm = self.norm_type(channels, activation=act)
+                else:
+                    norm = self.norm_type(channels)
         if issubclass(self.norm_type, nn.GroupNorm):
             norm = self.norm_type(self.groups, channels)
         if issubclass(self.norm_type, MABN3d):

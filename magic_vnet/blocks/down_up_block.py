@@ -20,6 +20,7 @@ class DownBlock(nn.Module):
                  se_type=None,
                  drop_type=None,
                  num_blocks=1):
+        
         super(DownBlock, self).__init__()
         assert block_name in ['residual', 'bottleneck', 'sk']
         self.down_conv = ConvBnAct3d(in_channels, out_channels, kernel_size=3, padding=1,
